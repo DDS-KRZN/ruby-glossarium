@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :categories %>
-    <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
+    <%= f.collection_check_boxes :category_ids, @categories, :id, :name %>
   </div>
 
   <div class="actions">

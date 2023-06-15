@@ -30,6 +30,7 @@ class WordsController < ApplicationController
 
   def edit
     @word = Word.find(params[:id])
+    @categories = @word.glossary.categories.order(:name)
   end
 
   def update

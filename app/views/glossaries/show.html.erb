@@ -19,7 +19,7 @@
   <ul>
     <% @words.each do |word| %>
       <li>
-        <b><%= word.word %></b> - <%= word.definition %><br>
+        <b><%= word.word %></b> - <%= word.definition %> | <%= link_to "Edit", edit_glossary_word_path(@glossary, word) %><br>
         <% unless word.categories.empty? %>
           <span>(Категорії: <%= word.categories.map(&:name).join(", ") %>)</span>
         <% end %>
@@ -32,4 +32,5 @@
 <%= link_to "Додати слово", new_glossary_word_path(@glossary), class: "button" %>
 
 <%#= link_to "Видалити", @glossary, method: :delete, data: { confirm: "Are you sure?" } %>
+<%#= link_to "Експорт у PDF", export_glossary_path(@glossary, format: :pdf) %>
 <%= link_to "Повернутися", glossaries_path %>
