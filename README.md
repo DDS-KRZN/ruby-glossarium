@@ -1,24 +1,19 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Встановлення
 
-Things you may want to cover:
+Для запуску цього веб-застосунку вам потрібно мати інстальований **Ruby on Rails** на вашому комп'ютері. Ви можете встановити його за допомогою [цього посилання](https://guides.rubyonrails.org/getting_started.html).
 
-* Ruby version
+Після того, як ви встановили Ruby on Rails, вам потрібно склонувати цей репозиторій на ваш комп'ютер за допомогою команди:
 
-* System dependencies
+```
+https://github.com/DDS-KRZN/ruby-glossarium.git
+```
 
-* Configuration
+Потім перейдіть до теки проекту та запустіть сервер через термінал за допомогою команди:
 
-* Database creation
+```
+rails server
+```
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+У браузері перейдіть за посиланням [http://127.0.0.1:3000](http://127.0.0.1:3000)
