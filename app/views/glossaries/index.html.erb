@@ -1,8 +1,8 @@
 <% if params[:archive] == "true" %>
-  <h1>Archived Glossaries</h1>
+  <h1>Архів глосаріїв</h1>
   <%= link_to "Show Active Glossaries", glossaries_path %>
 <% else %>
-  <h1>Glossaries</h1>
+  <h1>Глосарії</h1>
   <%= link_to "Show Archived Glossaries", glossaries_path(archive: true) %>
 <% end %>
 
@@ -15,8 +15,8 @@
       <% if params[:archive] == "true" && glossary.archive? || params[:archive] != "true" && !glossary.archive? %>
         <li>
           <%= link_to glossary.name, glossary %>
-          <%= link_to "Edit", edit_glossary_path(glossary) %>
-          <%= link_to "Delete", glossary, method: :delete, data: { confirm: "Are you sure?" } %>
+          <%= link_to "Редагувати", edit_glossary_path(glossary) %>
+          <%#= link_to "Delete", glossary, method: :delete, data: { confirm: "Are you sure?" } %>
         </li>
       <% end %>
     <% end %>
@@ -24,4 +24,4 @@
 
 <% end %>
 
-<%= link_to "New Glossary", new_glossary_path %>
+<%= link_to "Створити глосарій", new_glossary_path %>

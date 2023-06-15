@@ -1,29 +1,35 @@
 <h1><%= @glossary.name %></h1>
 
 <p><%= @glossary.description %></p>
+<%= link_to "Редагувати", edit_glossary_path(@glossary) %><br>
 
 <% if @glossary.archived? %>
   <p>(Archived)</p>
 <% end %>
 
+
 <% if @words.empty? %>
-  <p>There are no words in this glossary yet.</p>
+  <p><i>У цьому глосарії ще немає слів.</i></p>
 <% else %>
+  <% available_letters = @glossary.words.pluck(:word).map { |word| word[0].upcase }.uniq %>
+  <% available_letters.each do |letter| %>
+    <%= link_to letter, glossary_path(@glossary, letter: letter) %>
+  <% end %>
+  <%= link_to "Show All", glossary_path(@glossary) %>
   <ul>
     <% @words.each do |word| %>
       <li>
-        <%= word.word %> - <%= word.definition %>
+        <b><%= word.word %></b> - <%= word.definition %><br>
         <% unless word.categories.empty? %>
-          <span>(Categories: <%= word.categories.map(&:name).join(", ") %>)</span>
+          <span>(Категорії: <%= word.categories.map(&:name).join(", ") %>)</span>
         <% end %>
       </li>
     <% end %>
   </ul>
 <% end %>
 
-<%= link_to "Categories", glossary_categories_path(@glossary), class: "button" %>
-<%= link_to "New Word", new_glossary_word_path(@glossary), class: "button" %>
+<%= link_to "Категорії", glossary_categories_path(@glossary), class: "button" %>
+<%= link_to "Додати слово", new_glossary_word_path(@glossary), class: "button" %>
 
-<%= link_to "Edit", edit_glossary_path(@glossary) %>
-<%= link_to "Delete", @glossary, method: :delete, data: { confirm: "Are you sure?" } %>
-<%= link_to "Back", glossaries_path %>
+<%#= link_to "Видалити", @glossary, method: :delete, data: { confirm: "Are you sure?" } %>
+<%= link_to "Повернутися", glossaries_path %>

@@ -1,7 +1,7 @@
 class WordsController < ApplicationController
   def index
     @glossary = Glossary.find(params[:glossary_id])
-    @words = @glossary.words
+    @words = @glossary.words.order(:word)
     if params[:category_id].present?
       @category = Category.find(params[:category_id])
       @words = @words.where(categories: { id: @category.id })

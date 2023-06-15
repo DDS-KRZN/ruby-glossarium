@@ -1,11 +1,14 @@
 class GlossariesController < ApplicationController
   def index
-    @glossaries = Glossary.all
+    @glossaries = Glossary.all.order(:name)
   end
 
   def show
     @glossary = Glossary.find(params[:id])
-    @words = @glossary.words
+    @words = @glossary.words.order(:word)
+    if params[:letter].present?
+      @words = @words.where("word LIKE ?", "#{params[:letter]}%")
+    end
   end
 
 
