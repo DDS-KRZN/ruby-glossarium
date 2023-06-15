@@ -1,20 +1,27 @@
-<h1>Glossaries</h1>
+<% if params[:archive] == "true" %>
+  <h1>Archived Glossaries</h1>
+  <%= link_to "Show Active Glossaries", glossaries_path %>
+<% else %>
+  <h1>Glossaries</h1>
+  <%= link_to "Show Archived Glossaries", glossaries_path(archive: true) %>
+<% end %>
+
 
 <% if @glossaries.empty? %>
   <p>There are no glossaries yet.</p>
 <% else %>
   <ul>
     <% @glossaries.each do |glossary| %>
-      <li>
-        <%= link_to glossary.name, glossary %>
-        <%= link_to "Edit", edit_glossary_path(glossary) %>
-        <%= link_to "Delete", glossary, method: :delete, data: { confirm: "Are you sure?" } %>
-        <% if glossary.archived? %>
-          <span>(Archived)</span>
-        <% end %>
-      </li>
+      <% if params[:archive] == "true" && glossary.archive? || params[:archive] != "true" && !glossary.archive? %>
+        <li>
+          <%= link_to glossary.name, glossary %>
+          <%= link_to "Edit", edit_glossary_path(glossary) %>
+          <%= link_to "Delete", glossary, method: :delete, data: { confirm: "Are you sure?" } %>
+        </li>
+      <% end %>
     <% end %>
   </ul>
+
 <% end %>
 
 <%= link_to "New Glossary", new_glossary_path %>
