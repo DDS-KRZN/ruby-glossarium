@@ -6,4 +6,10 @@ Rails.application.routes.draw do
     resources :categories
     resources :words
   end
+  resources :glossaries do
+    member do
+      get :export
+    end
+  end
+
 end

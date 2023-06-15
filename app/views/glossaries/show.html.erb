@@ -32,5 +32,5 @@
 <%= link_to "Додати слово", new_glossary_word_path(@glossary), class: "button" %>
 
 <%#= link_to "Видалити", @glossary, method: :delete, data: { confirm: "Are you sure?" } %>
-<%#= link_to "Експорт у PDF", export_glossary_path(@glossary, format: :pdf) %>
+<%= link_to "Експорт у PDF", export_glossary_path(@glossary, format: :pdf) %>
 <%= link_to "Повернутися", glossaries_path %>

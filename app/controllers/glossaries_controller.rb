@@ -44,6 +44,30 @@ class GlossariesController < ApplicationController
     redirect_to root_path, notice: "Glossary was successfully deleted."
   end
 
+  def export
+    @glossary = Glossary.find(params[:id])
+    @words = @glossary.words.order(:word)
+    respond_to do |format|
+      format.pdf do
+        pdf = Prawn::Document.new
+        pdf.font_families.update(
+          "OpenSans" => {
+            normal: Rails.root.join("app/assets/fonts/OpenSans-Regular.ttf"),
+            bold: Rails.root.join("app/assets/fonts/OpenSans-Bold.ttf")
+          }
+        )
+        pdf.font "OpenSans"
+        pdf.text @glossary.name
+        pdf.text @glossary.description
+        @words.each do |word|
+          pdf.text "<b>#{word.word}</b> - #{word.definition}", inline_format: true
+        end
+        send_data pdf.render, filename: 'glossary.pdf', type: 'application/pdf'
+      end
+    end
+  end
+
+
   private
   def glossary_params
     params.require(:glossary).permit(:name, :description, :archive)
