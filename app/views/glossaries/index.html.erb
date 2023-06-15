@@ -1,0 +1,20 @@
+<h1>Glossaries</h1>
+
+<% if @glossaries.empty? %>
+  <p>There are no glossaries yet.</p>
+<% else %>
+  <ul>
+    <% @glossaries.each do |glossary| %>
+      <li>
+        <%= link_to glossary.name, glossary %>
+        <%= link_to "Edit", edit_glossary_path(glossary) %>
+        <%= link_to "Delete", glossary, method: :delete, data: { confirm: "Are you sure?" } %>
+        <% if glossary.archived? %>
+          <span>(Archived)</span>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= link_to "New Glossary", new_glossary_path %>

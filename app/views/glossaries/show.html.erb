@@ -1,0 +1,28 @@
+<h1><%= @glossary.name %></h1>
+
+<p><%= @glossary.description %></p>
+
+<% if @glossary.archived? %>
+  <p>(Archived)</p>
+<% end %>
+
+<% if @words.empty? %>
+  <p>There are no words in this glossary yet.</p>
+<% else %>
+  <ul>
+    <% @words.each do |word| %>
+      <li>
+        <%= word.word %> - <%= word.definition %>
+        <% unless word.categories.empty? %>
+          <span>(Categories: <%= word.categories.map(&:name).join(", ") %>)</span>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= link_to "New Word", new_glossary_word_path(@glossary), class: "button" %>
+
+<%= link_to "Edit", edit_glossary_path(@glossary) %>
+<%= link_to "Delete", @glossary, method: :delete, data: { confirm: "Are you sure?" } %>
+<%= link_to "Back", glossaries_path %>
