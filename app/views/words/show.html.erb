@@ -1,0 +1,11 @@
+<h1><%= @word.word %></h1>
+
+<p><%= @word.definition %></p>
+
+<% unless @word.categories.empty? %>
+  <p>Categories: <%= @word.categories.map(&:name).join(", ") %></p>
+<% end %>
+
+<%= link_to "Edit", edit_glossary_word_path(@word.glossary, @word) %>
+<%= link_to "Delete", glossary_word_path(@word.glossary, @word), method: :delete, data: { confirm: "Are you sure?" } %>
+<%= link_to "Back", glossary_words_path(@word.glossary) %>

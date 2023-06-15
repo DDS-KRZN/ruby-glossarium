@@ -1,0 +1,32 @@
+<h1>Words in <%= @glossary.name %></h1>
+
+<% if @words.empty? %>
+  <p>There are no words in this glossary yet.</p>
+<% else %>
+  <table>
+    <thead>
+    <tr>
+      <th>Word</th>
+      <th>Definition</th>
+      <th>Categories</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @words.each do |word| %>
+      <tr>
+        <td><%= word.word %></td>
+        <td><%= word.definition %></td>
+        <td><%= word.categories.map(&:name).join(", ") %></td>
+        <td>
+          <%= link_to "Show", [@glossary, word] %>
+          <%= link_to "Edit", edit_glossary_word_path(@glossary, word) %>
+          <%= link_to "Delete", glossary_word_path(@glossary, word), method: :delete, data: { confirm: "Are you sure?" } %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<%= link_to "New Word", new_glossary_word_path(@glossary) %>

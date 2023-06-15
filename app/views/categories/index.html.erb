@@ -1,0 +1,27 @@
+<h1>Categories</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @categories.each do |category| %>
+    <tr>
+      <td><%= category.name %></td>
+<!--      <td><%#= link_to 'Show', [@glossary, category] %></td>-->
+      <td><%= link_to 'Редагувати', edit_glossary_category_path(@glossary, category) %></td>
+      <td><%= link_to 'Видалити', [@glossary, category], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Створити категорію', new_glossary_category_path(@glossary) %>
+<%= link_to "Повернутися", @glossary %>
+

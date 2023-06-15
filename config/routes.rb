@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :glossaries
   resources :glossaries do
+    resources :categories
     resources :words
   end
 end
