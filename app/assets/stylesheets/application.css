@@ -5,3 +5,7 @@ body {
 .field {
     margin-bottom: 10px;
 }
+
+#import-txt-form {
+    margin-bottom: 1em;
+}

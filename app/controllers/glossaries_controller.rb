@@ -67,6 +67,32 @@ class GlossariesController < ApplicationController
     end
   end
 
+  def export_txt
+    @glossary = Glossary.find(params[:id])
+    @words = @glossary.words.order(:word)
+
+    file_content = @words.map { |word| "#{word.word}\t#{word.definition}" }.join("\n")
+
+    send_data file_content, filename: 'glossary.txt', type: 'text/plain'
+  end
+
+  def import_txt
+    @glossary = Glossary.find(params[:id])
+
+    if params[:file].present?
+      file_content = params[:file].read
+
+      file_content.each_line do |line|
+        word, definition = line.chomp.split("\t")
+        @glossary.words.create(word: word, definition: definition)
+      end
+
+      redirect_to @glossary, notice: "Words were successfully imported."
+    else
+      redirect_to @glossary, alert: "Please select a file to import."
+    end
+  end
+
 
   private
   def glossary_params

@@ -22,7 +22,7 @@ class WordsController < ApplicationController
     @glossary = Glossary.find(params[:glossary_id])
     @word = @glossary.words.build(word_params)
     if @word.save
-      redirect_to [@glossary, @word], notice: "Word was successfully created."
+      redirect_to glossary_path(@word.glossary), notice: "Word was successfully created."
     else
       render :new, alert: "Word could not be created."
     end
@@ -36,11 +36,12 @@ class WordsController < ApplicationController
   def update
     @word = Word.find(params[:id])
     if @word.update(word_params)
-      redirect_to [@word.glossary, @word], notice: "Word was successfully updated."
+      redirect_to glossary_path(@word.glossary), notice: "Word was successfully updated."
     else
       render :edit, alert: "Word could not be updated."
     end
   end
+
 
   def destroy
     @word = Word.find(params[:id])

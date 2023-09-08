@@ -11,7 +11,7 @@
 <% if @words.empty? %>
   <p><i>У цьому глосарії ще немає слів.</i></p>
 <% else %>
-  <% available_letters = @glossary.words.pluck(:word).map { |word| word[0].upcase }.uniq %>
+  <% available_letters = @glossary.words.pluck(:word).map { |word| word.mb_chars[0].upcase }.uniq %>
   <% available_letters.each do |letter| %>
     <%= link_to letter, glossary_path(@glossary, letter: letter) %>
   <% end %>
@@ -33,4 +33,30 @@
 
 <%#= link_to "Видалити", @glossary, method: :delete, data: { confirm: "Are you sure?" } %>
 <%= link_to "Експорт у PDF", export_glossary_path(@glossary, format: :pdf) %>
+<%= link_to "Експорт у TXT", export_txt_glossary_path(@glossary) %>
+<br>
+
+<%= link_to "Імпорт з TXT", "#", id: "import-txt-button" %>
+
+<div id="import-txt-form" style="display: none;">
+  <%= form_with url: import_txt_glossary_path(@glossary), method: :post, local: true, html: { target: "_blank" } do |form| %>
+    <%= form.label :file, "Select a file to import:" %>
+    <%= form.file_field :file %>
+    <%= form.submit "Import" %>
+    <%= button_tag "Скасувати", type: "button", id: "cancel-import-button" %>
+  <% end %>
+</div>
+
+<script>
+    document.getElementById("import-txt-button").addEventListener("click", function() {
+        document.getElementById("import-txt-form").style.display = "block";
+        document.getElementById("import-txt-button").style.display = "none";
+    });
+
+    document.getElementById("cancel-import-button").addEventListener("click", function() {
+        document.getElementById("import-txt-form").style.display = "none";
+        document.getElementById("import-txt-button").style.display = "block";
+    });
+</script>
+
 <%= link_to "Повернутися", glossaries_path %>
